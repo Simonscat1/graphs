@@ -2,13 +2,6 @@
     margin: 2rem auto;
     max-width: 800px;
 }
-
-img{
-  width: 500px;
-  height: 500px;
-  object-fit: contain;
-}
-
 .progessBar{
   height: 1rem;
   width: 0%;
