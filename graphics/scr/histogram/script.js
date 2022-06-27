@@ -30,7 +30,7 @@ canvas.addEventListener('mousemove',function(e){
 	let rect=canvas.getBoundingClientRect();
 	let x = e.clientX - rect.left;
 	let y = e.clientY - rect.top;
-	console.log("x: " + x + " y: " + y);
+	// console.log("x: " + x + " y: " + y);
 	canvasZoom.width=200;
 	canvasZoom.height=200;		
 	context_canvasZoom.drawImage(canvas,x-50,y-50,100,100,0,0,200,200);
@@ -62,7 +62,7 @@ canvas.addEventListener('click',function(e){
 	let rect=canvas.getBoundingClientRect();
 	let x = e.clientX - rect.left;
 	let y = e.clientY - rect.top;
-	console.log("x: " + x + " y: " + y);		
+	// console.log("x: " + x + " y: " + y);		
 	for(let i=0;i<button_coordinates.length;i++){
 		if(button_coordinates[i].disabled){
 			if(i==0 || i==1 || i==5 || i==6){
@@ -81,22 +81,32 @@ canvas.addEventListener('click',function(e){
 	}
 });
 function download_img(e){
-    let dataURL = "dataURL="+canvas.toDataURL("image/png");
+    let dataURL = canvas.toDataURL("image/png");
 	e.preventDefault();
-	
-    
-	const xhr = new XMLHttpRequest();
-	const url="../../php/histogram/main.php";
-	xhr.open('POST', url, true);
-	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhr.onload = function() {
-		if (xhr.status != 200) { // анализируем HTTP-статус ответа, если статус не 200, то произошла ошибка
-		  alert(`Ошибка ${xhr.status}: ${xhr.statusText}`); // Например, 404: Not Found
-		} else { // если всё прошло гладко, выводим результат
-		  alert(`Готово, получили ${xhr.response.length} байт`); // response -- это ответ сервера
+	$.ajax({
+		type:"POST",
+		url:"main.php",
+		data: {
+			img: dataURL
 		}
-	  };
-	  xhr.send(dataURL);
-	  return false;
+	}).done(function(msg){
+		alert(msg)
+	})
+    
+	// const xhr = new XMLHttpRequest();
+	// const url="../../php/histogram/app.php";
+	// xhr.open('POST', url, true);
+	// xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	// xhr.onload = function() {
+	// 	if (xhr.status != 200) { // анализируем HTTP-статус ответа, если статус не 200, то произошла ошибка
+	// 	  alert(`Ошибка ${xhr.status}: ${xhr.statusText}`); // Например, 404: Not Found
+	// 	} else { // если всё прошло гладко, выводим результат
+	// 	  alert(`Готово, получили ${xhr.response.length} байт`); // response -- это ответ сервера
+	// 	}
+	// 	xhr.send(dataURL);
+	//   };
+	//   console.log(dataURL)
+	  
+	//   return false;
 }
 		

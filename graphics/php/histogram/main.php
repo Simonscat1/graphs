@@ -1,19 +1,25 @@
 <?php
-	if(isset($_POST['send'])){
-
-		$dataURL=$_POST['dataURL'];
-		
-
-		file_put_contents("image.jpeg", base64_decode($dataURL));
-		echo $dataURL;
-		echo "11111111111111111111111111111";
-		echo '<script>console.log('.$dataURL.');</script>';
-
-	}
+	 $img = $_POST['img'];
+   
+	 if (strpos($img, 'data:image/png;base64') === 0) {
+		 
+		$img = str_replace('data:image/png;base64,', '', $img);
+		$img = str_replace(' ', '+', $img);
+		$data = base64_decode($img);
+		$file = 'uploads/img'.date("YmdHis").'.png';
+	 
+		if (file_put_contents($file, $data)) {
+		   echo "$file.";
+		} else {
+		   echo '123';
+		}   
+	   
+	 }
 ?>
 <html>
 <head>
 <script src="../../scr/histogram/script.js" defer></script>
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="../../css/histogram.css">
 </head>
 <body>
@@ -60,16 +66,6 @@
 			<canvas id="img_canvas" class="img_canvas" style="cursor: crosshair;">	
 			</canvas>
 		</div>
-	</div>
-	
-		
-		
-			
-			
-		
-		
-		
-		
-	
+	</div>		
 </body>
 </html>

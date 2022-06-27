@@ -17,6 +17,7 @@ const FileUpload = () => {
         const handleChange = (e) => {
             setProgess(0);
             const file = e.target.files[0];
+            console.log(file)
             setFile(file)
         }
         const uploadFile = () => {
@@ -37,7 +38,6 @@ const FileUpload = () => {
             }).catch(err => console.log(err))}
 
             if((data.name === '') && (data.path === '')){
-                
                 return(
                     <div>
                         <input type="file" ref={el} onChange={handleChange} />
@@ -49,8 +49,9 @@ const FileUpload = () => {
                         </button>
                     </div>
                 )
+            }else {
+                alert('123')
             }
-            
             return(
                 <Modal key={data} data={data}/>
             )

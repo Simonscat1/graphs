@@ -14,7 +14,7 @@ const Modal = ({ data }) => {
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(all_cordinates)
+                data: JSON.stringify(all_cordinates)
             };
 
             fetch('http://localhost:5000/newmage', requestOptions)
