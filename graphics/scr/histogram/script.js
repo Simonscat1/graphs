@@ -7,8 +7,20 @@ file_input.addEventListener('change',function(e){
 	canvas.height = 600;
 	var image = new Image;
 	image.src = URL.createObjectURL(e.target.files[0]);
+	
 	image.onload = function() {
-	    context_canvas.drawImage(image, 0, 0,880,498);
+		if(image.width>900){
+			for(let i=1;i>0;i=i-0.0001){
+				if(image.width*i<=900){
+					image.width*=i;
+					image.height*=i;
+					break;
+				}
+			}
+		}
+		
+		alert(image.width+" "+image.height);
+	    context_canvas.drawImage(image, 0, 0,image.width,image.height);
         file_name.value=file_input.files[0].name;
 	}
 });
@@ -68,11 +80,23 @@ canvas.addEventListener('click',function(e){
 		}
 	}
 });
-function download_img(){
-    const dataURL = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");  // here is the most important part because if you dont replace you will get a DOM 18 exception.
-
-
-    window.location.href=image;
-    console.log(dataURL);
+function download_img(e){
+    let dataURL = "dataURL="+canvas.toDataURL("image/png");
+	e.preventDefault();
+	
+    
+	const xhr = new XMLHttpRequest();
+	const url="../../php/histogram/main.php";
+	xhr.open('POST', url, true);
+	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhr.onload = function() {
+		if (xhr.status != 200) { // анализируем HTTP-статус ответа, если статус не 200, то произошла ошибка
+		  alert(`Ошибка ${xhr.status}: ${xhr.statusText}`); // Например, 404: Not Found
+		} else { // если всё прошло гладко, выводим результат
+		  alert(`Готово, получили ${xhr.response.length} байт`); // response -- это ответ сервера
+		}
+	  };
+	  xhr.send(dataURL);
+	  return false;
 }
 		
