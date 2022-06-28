@@ -24,7 +24,7 @@ app.post('/upload', (req, res) => {
         return res.status(500).send({ msg: "file is not found" })
     }
     const myFile = req.files.file;
-
+    console.log(myFile)
     myFile.mv(`${__dirname}/public/${myFile.name}`, function (err) {
         if (err) {
             console.log(err)
@@ -33,7 +33,6 @@ app.post('/upload', (req, res) => {
         return res.send({name: myFile.name, path: `/${myFile.name}`});
     });
 })
-
 app.post('/newmage', (req, res) => {
     let body = ''
     if(req.method === 'POST'){
@@ -46,7 +45,6 @@ app.post('/newmage', (req, res) => {
             console.log(body_array)
         });
     }
-   
 })
 
 
