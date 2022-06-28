@@ -80,23 +80,26 @@ canvas.addEventListener('click',function(e){
 		}
 	}
 });
-function download_img(e){
-    let dataURL = "dataURL="+canvas.toDataURL("image/png");
-	e.preventDefault();
-	
+
     
-	const xhr = new XMLHttpRequest();
-	const url="../../php/histogram/main.php";
-	xhr.open('POST', url, true);
-	xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhr.onload = function() {
-		if (xhr.status != 200) { // анализируем HTTP-статус ответа, если статус не 200, то произошла ошибка
-		  alert(`Ошибка ${xhr.status}: ${xhr.statusText}`); // Например, 404: Not Found
-		} else { // если всё прошло гладко, выводим результат
-		  alert(`Готово, получили ${xhr.response.length} байт`); // response -- это ответ сервера
-		}
-	  };
-	  xhr.send(dataURL);
-	  return false;
-}
+$(document).on('click','#botton_send_form',function(){
+	let dataURL=canvas.toDataURL("image/png");
+	date={'data':dataURL};
+	alert(date.data);
+	$.ajax({
+		url: "../../php/histogram/server.php",
+		type: "POST",
+		data: date,
+		success: function(data){
+			$('p.out').text(data);
+		  },
+		   error: function(){
+		   console.log('ERROR');
+		   }
+
+	})
+	
+})
+	
+
 		

@@ -1,18 +1,7 @@
-<?php
-	if(isset($_POST['send'])){
 
-		$dataURL=$_POST['dataURL'];
-		
-
-		file_put_contents("image.jpeg", base64_decode($dataURL));
-		echo $dataURL;
-		echo "11111111111111111111111111111";
-		echo '<script>console.log('.$dataURL.');</script>';
-
-	}
-?>
 <html>
 <head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="../../scr/histogram/script.js" defer></script>
 	<link rel="stylesheet" href="../../css/histogram.css">
 </head>
@@ -26,7 +15,7 @@
 			<div>
 				<label for="file">Выбрать файл</label><input type="file" id="file">
 			</div>
-			<form onsubmit = "download_img(event)">
+			<form method="POST" action="server.php">
 			<div>
 					<span>Имя файла:</span><input id="file_name" name="file_name" type="text" required disabled/>
 				</div>
@@ -52,7 +41,7 @@
 					<input type="button" name="33" class="button_coordinates" onclick="action_button(this)"value="X1Tower"></input><input id="X1Tower" name="X1Tower" type="text" required disabled/>
 				</div>
 				<div>
-					<button  type="submit" name="send"> Отправить</button>
+					<button  type="submit" id="botton_send_form" name="send"> Отправить</button>
 				</div>
 			</form>
 		</div>
