@@ -9,15 +9,27 @@ file_input.addEventListener('change',function(e){
 	image.src = URL.createObjectURL(e.target.files[0]);
 	
 	image.onload = function() {
-		if(image.width>900){
-			for(let i=1;i>0;i=i-0.0001){
-				if(image.width*i<=900){
-					image.width*=i;
-					image.height*=i;
-					break;
+		if(image.width>900 || image.height>600){
+			if(image.width>image.height){
+				for(let i=1;i>0;i=i-0.0001){
+					if(image.width*i<=900){
+						image.width*=i;
+						image.height*=i;
+						break;
+					}
+				}
+			}
+			if(image.height>600){
+				for(let i=1;i>0;i=i-0.0001){
+					if(image.height*i<=600){
+						image.width*=i;
+						image.height*=i;
+						break;
+					}
 				}
 			}
 		}
+		
 		
 		alert(image.width+" "+image.height);
 	    context_canvas.drawImage(image, 0, 0,image.width,image.height);
@@ -42,11 +54,15 @@ var button_coordinates = document.querySelectorAll('.button_coordinates');
 function action_button(e){
 	for(let i=0;i<button_coordinates.length;i++){
 		if(button_coordinates[i]==e){
-				button_coordinates[i].disabled=true;
+				
+					button_coordinates[i].disabled=true;
+				}
+			
+		
+			else{
+				button_coordinates[i].disabled=false;
 			}
-		else{
-			button_coordinates[i].disabled=false;
-		}
+		
 	}			
 }
 function RGB_color(x,y){
@@ -65,13 +81,13 @@ canvas.addEventListener('click',function(e){
 	console.log("x: " + x + " y: " + y);		
 	for(let i=0;i<button_coordinates.length;i++){
 		if(button_coordinates[i].disabled){
-			if(i==0 || i==1 || i==5 || i==6){
+			if(i==0 || i==1 || i==4 || i==5){
 			input_coordinates[i+1].value=x;
 			}
-			else if(i==2 || i==3){
+			else if(i==2){
 				input_coordinates[i+1].value=y;
 			}
-            else if(i==4){
+            else if(i==3){
                 input_coordinates[i+1].value=RGB_color(x,y);
             }
 		}
@@ -85,20 +101,32 @@ canvas.addEventListener('click',function(e){
 $(document).on('click','#botton_send_form',function(){
 	let dataURL=canvas.toDataURL("image/png");
 	date={'data':dataURL};
-	alert(date.data);
-	$.ajax({
-		url: "../../php/histogram/server.php",
-		type: "POST",
-		data: date,
-		success: function(data){
-			$('p.out').text(data);
-		  },
-		   error: function(){
-		   console.log('ERROR');
-		   }
-	})
-	return false;
-})
-	
-
+	console.log(date.data);
+	let file_name=document.querySelector('#file_name').value;
+	let XY0=document.querySelector('#XY0').value;
+	let X1=document.querySelector('#X1').value;
+	let Y1=document.querySelector('#Y1').value;
+	let RGB=document.querySelector('#RGB').value;
+	if(file_name=="" || XY0=="" || X1=="" || Y1=="" || RGB==""){
+		alert('Что-то не указано');
+	}
+	else{
+		$.ajax({
+			url: "http://localhost:8000/uploer",
+			type: "POST",
+			data: {
+				'data':dataURL,
+				'cordes':[XY0,X1,Y1],
+				'RGB':RGB
+			},
+			success: function(data){
+				$('p.out').text(data);
+		  	},
+		   	error: function(){
+		   		console.log('ERROR');
+		   	}
+		});
 		
+	}
+	return false;
+});
