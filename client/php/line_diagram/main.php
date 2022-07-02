@@ -2,7 +2,7 @@
 <html>
 <head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="../../scr/histogram/script.js" defer></script>
+<script src="../../scr/line_diagram/script.js" defer></script>
 	<link rel="stylesheet" href="../../css/histogram.css">
 </head>
 <body>
@@ -32,6 +32,9 @@
 					<input type="button" class="button_coordinates" onclick="action_button(this)"value="RGB"></input><input id="RGB" name="RGB" type="text" required disabled/>
 				</div>
 				<div>
+					<input type="button" class="button_coordinates" onclick="action_button(this)"value="X01/len"></input><input id="X01" name="X01" type="text" required disabled/>
+				</div>
+				<div>
 					<input type="button" class="button_coordinates" onclick="action_button(this)"value="Y01/len"></input><input id="Y01" name="Y01" type="text" required disabled/>
 				</div>
 				<div>
@@ -40,8 +43,8 @@
 			</form>
 			<div>
 				<select onchange="if (this.value) window.location.href = this.value">
-					<option value='../histogram/main.php' selected="selected">гистограммы</option>
-					<option value='../line_diagram/main.php' >линейный график</option>
+					<option value='../histogram/main.php'>гистограммы</option>
+					<option value='../line_diagram/main.php' selected="selected">линейный график</option>
 				</select>
 			</div>
 		</div>

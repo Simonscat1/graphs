@@ -51,19 +51,26 @@ canvas.addEventListener('mousemove',function(e){
  
 });
 var button_coordinates = document.querySelectorAll('.button_coordinates');
+var lenX=document.querySelector('#X01');
 var len=document.querySelector('#Y01');
 function action_button(e){
 	for(let i=0;i<button_coordinates.length;i++){
 		if(button_coordinates[i]==e){
-					if(i==4){
-						button_coordinates[i].disabled=true;
-						len.disabled=false
-					}
-					else{
-					button_coordinates[i].disabled=true;
-					len.disabled=true
-					}
+			if(i==4){
+				button_coordinates[i].disabled=true;
+				lenX.disabled=false
+				len.disabled=true
+			}
+			if(i==5){
+				button_coordinates[i].disabled=true;
+				len.disabled=false
+				lenX.disabled=true
+			}
+			else{
+				button_coordinates[i].disabled=true;
+				
 				}
+			}
 			
 		
 			else{
@@ -127,8 +134,10 @@ $(document).on('click','#botton_send_form',function(){
 	let Y1=document.querySelector('#Y1').value;
 	let RGB=document.querySelector('#RGB').value;
 	let lenY=len.value;
-	let type=1;
-	if(file_name=="" || XY0=="" || X1=="" || Y1=="" || RGB=="" || lenY==""){
+	let lenx=lenX.value;
+	let type=2;
+
+	if(file_name=="" || XY0=="" || X1=="" || Y1=="" || RGB=="" || lenY=="" || lenx==""){
 		alert('Что-то не указано');
 	}
 	else{
@@ -140,7 +149,8 @@ $(document).on('click','#botton_send_form',function(){
 				'cordes':[X0,Y0,X1,Y1],
 				'RGB':[R,G,B],
 				'lenY':lenY,
-				'type':type
+				'type':type,
+				'lenX':lenx
 			},
 			success: function(data){
 				$('p.out').text(data);
