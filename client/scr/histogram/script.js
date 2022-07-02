@@ -51,38 +51,57 @@ canvas.addEventListener('mousemove',function(e){
  
 });
 var button_coordinates = document.querySelectorAll('.button_coordinates');
+var len=document.querySelector('#Y01');
 function action_button(e){
 	for(let i=0;i<button_coordinates.length;i++){
 		if(button_coordinates[i]==e){
-				
+					if(i==4){
+						button_coordinates[i].disabled=true;
+						len.disabled=false
+					}
+					else{
 					button_coordinates[i].disabled=true;
+					len.disabled=true
+					}
 				}
 			
 		
 			else{
 				button_coordinates[i].disabled=false;
+				
 			}
 		
 	}			
 }
+var R,G,B;
+
 function RGB_color(x,y){
     var RGB_result=document.querySelector('#RGB')
     var imgData=context_canvas.getImageData(x,y,1,1);
-    
+    R=imgData.data[0];
+	G=imgData.data[1];
+	B=imgData.data[2];
     
     return imgData.data[0]+","+imgData.data[1]+","+imgData.data[2];
 
 }
 var input_coordinates = document.querySelectorAll('input[type="text"]');
+var X0,Y0;
 canvas.addEventListener('click',function(e){
 	let rect=canvas.getBoundingClientRect();
 	let x = e.clientX - rect.left;
 	let y = e.clientY - rect.top;
+	
 	console.log("x: " + x + " y: " + y);		
 	for(let i=0;i<button_coordinates.length;i++){
 		if(button_coordinates[i].disabled){
-			if(i==0 || i==1 || i==4 || i==5){
-			input_coordinates[i+1].value=x;
+			if(i==0){
+				input_coordinates[i+1].value=x+','+y;
+				X0=x;
+				Y0=y;
+			}
+			else if(i==1){
+				input_coordinates[i+1].value=x;
 			}
 			else if(i==2){
 				input_coordinates[i+1].value=y;
@@ -107,7 +126,8 @@ $(document).on('click','#botton_send_form',function(){
 	let X1=document.querySelector('#X1').value;
 	let Y1=document.querySelector('#Y1').value;
 	let RGB=document.querySelector('#RGB').value;
-	if(file_name=="" || XY0=="" || X1=="" || Y1=="" || RGB==""){
+	let lenY=len.value;
+	if(file_name=="" || XY0=="" || X1=="" || Y1=="" || RGB=="" || lenY==""){
 		alert('Что-то не указано');
 	}
 	else{
@@ -116,8 +136,9 @@ $(document).on('click','#botton_send_form',function(){
 			type: "POST",
 			data: {
 				'data':dataURL,
-				'cordes':[XY0,X1,Y1],
-				'RGB':RGB
+				'cordes':[X0,Y0,X1,Y1],
+				'RGB':[R,G,B],
+				'lenY':lenY
 			},
 			success: function(data){
 				$('p.out').text(data);
@@ -126,7 +147,7 @@ $(document).on('click','#botton_send_form',function(){
 		   		console.log('ERROR');
 		   	}
 		});
-		
+		return false;
 	}
-	return false;
+	
 });

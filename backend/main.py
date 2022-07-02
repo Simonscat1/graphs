@@ -1,7 +1,7 @@
 
 from flask import Flask, jsonify, request, redirect, url_for
 import json
-from app import gw1
+from app import work_in_img
 
 app = Flask(__name__)
 
@@ -10,17 +10,10 @@ def get_post_js():
     if request.method == 'POST':
         img = request.form["data"]
         cordes = request.form.getlist("cordes[]")
-        rgb = request.form['RGB']
-        gw1(img,cordes,rgb)
+        rgb = request.form.getlist('RGB[]')
+        lenY = request.form["lenY"]
+        work_in_img(img,cordes,rgb,lenY)
     return jsonify({'success': 'ok'})
-
-@app.route('/')
-def hello_world():
-    hello = 'hello world!'
-    return hello
-
-
-
 
 if __name__ == "__main__":
     app.debug = True

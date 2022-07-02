@@ -15,7 +15,7 @@
 			<div>
 				<label for="file">Выбрать файл</label><input type="file" id="file">
 			</div>
-			<form method="POST" action="server.php">
+			<form method="POST" action="">
 			<div>
 					<span>Имя файла:</span><input id="file_name" name="file_name" type="text" required disabled/>
 				</div>
@@ -32,10 +32,7 @@
 					<input type="button" class="button_coordinates" onclick="action_button(this)"value="RGB"></input><input id="RGB" name="RGB" type="text" required disabled/>
 				</div>
 				<div>
-					<input type="button" class="button_coordinates" onclick="action_button(this)"value="X0Tower"></input><input id="X0Tower" name="X0Tower" type="text" required disabled/>
-				</div>
-				<div>
-					<input type="button" name="33" class="button_coordinates" onclick="action_button(this)"value="X1Tower"></input><input id="X1Tower" name="X1Tower" type="text" required disabled/>
+					<input type="button" class="button_coordinates" onclick="action_button(this)"value="Y01/len"></input><input id="Y01" name="Y01" type="text" required disabled/>
 				</div>
 				<div>
 					<button  type="submit" id="botton_send_form" name="send"> Отправить</button>
