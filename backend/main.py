@@ -1,8 +1,7 @@
 
 from flask import Flask, jsonify, request, redirect, url_for
-import json
-from app import work_in_img
-from app2 import work_in_img1
+from histogram import work_in_img
+from line_diagram import work_in_img1
 
 app = Flask(__name__)
 

@@ -42,7 +42,6 @@ canvas.addEventListener('mousemove',function(e){
 	let rect=canvas.getBoundingClientRect();
 	let x = e.clientX - rect.left;
 	let y = e.clientY - rect.top;
-	console.log("x: " + x + " y: " + y);
 	canvasZoom.width=200;
 	canvasZoom.height=200;		
 	context_canvasZoom.drawImage(canvas,x-50,y-50,100,100,0,0,200,200);
@@ -120,7 +119,6 @@ canvas.addEventListener('click',function(e){
 $(document).on('click','#botton_send_form',function(){
 	let dataURL=canvas.toDataURL("image/png");
 	date={'data':dataURL};
-	console.log(date.data);
 	let file_name=document.querySelector('#file_name').value;
 	let XY0=document.querySelector('#XY0').value;
 	let X1=document.querySelector('#X1').value;
