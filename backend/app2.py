@@ -1,5 +1,4 @@
 from PIL import Image
-
 import pybase64
 
 
@@ -11,7 +10,7 @@ def work_in_img1(img, cordes, rgb, lenX, lenY):
     R = int(rgb[0])
     G = int(rgb[1])
     B = int(rgb[2])
-    lenX = int(lenX)
+    lenX = int(lenX) - 1
     lenY = int(lenY)
     print('XY0= [ ', X0, ' : ', Y0, ' ]\n',
           'X1= [ ', X1, ' : ', Y0, ' ]\n',
@@ -41,28 +40,27 @@ def scaning_pixel(R, G, B, lenX, lenY):
     rgb_image = image.convert('RGB')
     (width, height) = image.size
     print('size_crop_img=[ ', width, ' : ', height, ' ]')
-    segmentX = round(width / lenX)-1
-    segmentY = round(height / lenY)
-    print('height_in_pixel_segment_Y=[ ', segmentY, ' ]\n','taken_values_peak=[ ',end=' ')
-    i=0
+    segmentX = width / lenX - 0.0001
+    segmentY = height / lenY
+    print('height_in_pixel_segment_Y=[ ', segmentY, ' ]\nwidth_in_pixel_segment_X=[ ', segmentX,
+          ' ]\ntaken_values_peak=[ ', end=' ')
+    i = 0
     while True:
-        j=0
+        j = 0
         while True:
-            if j+1<=height:
-                j+=1
+
+            r, g, b = rgb_image.getpixel((i, j))
+            if R != r or G != g or B != b:
+                break
+            if j + 1 <= height:
+                j += 1
             else:
                 break
-            r,g,b=rgb_image.getpixel((i,j))
-            if R!=r or G!=g or B!=b:
-                break
-        if i+segmentX<width:
-            if ((height - j) / segmentY != 0):
-                print(round((height - j) / segmentY), end=', ')
+        if i + segmentX < width:
+            if int(height - j) / segmentY != 0:
+                print(int((height - j) / segmentY), end=', ')
             i = i + segmentX
         else:
-            if (round((height - j) / segmentY) != 0):
-                print((height - j) / segmentY, end=' ]')
+            if int((height - j) / segmentY) != 0:
+                print(int((height - j) / segmentY), end=' ]')
             break
-
-
-

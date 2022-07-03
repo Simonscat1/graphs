@@ -25,6 +25,7 @@ def get_post_js():
             work_in_img1(img, cordes, rgb,lenX, lenY)
     return jsonify({'success': 'ok'})
 
+
 if __name__ == "__main__":
     app.debug = True
     app.run(host='0.0.0.0', port = 8000)

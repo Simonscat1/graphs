@@ -44,7 +44,7 @@ def scaning_pixel(R, G, B, tower, lenY):
     print('size_crop_img=[ ', width, ' : ', height, ' ]')
     i = round(tower / 2)
     segmentY = round(height / lenY)
-    print('height_in_pixel_segment_Y=[ ', segmentY, ' ]\n','taken_values_peak=[ ',end=' ')
+    print('height_in_pixel_segment_Y=[ ', segmentY, ' ]\n', 'taken_values_peak=[ ', end=' ')
     while True:
         j = 0
         while True:
@@ -57,11 +57,11 @@ def scaning_pixel(R, G, B, tower, lenY):
 
                 break
         if i + tower < width:
-            if(round((height - j) / segmentY)!=0):
+            if round((height - j) / segmentY)!=0:
                 print(round((height - j) / segmentY), end=', ')
             i = i + tower
         else:
-            if (round((height - j) / segmentY) != 0):
+            if round((height - j) / segmentY) != 0:
                 print(round((height - j) / segmentY), end=', ')
             break
 
