@@ -31,7 +31,7 @@ file_input.addEventListener('change',function(e){
 		}
 		
 		
-		alert(image.width+" "+image.height);
+		// alert(image.width+" "+image.height);
 	    context_canvas.drawImage(image, 0, 0,image.width,image.height);
         file_name.value=file_input.files[0].name;
 	}
@@ -91,7 +91,7 @@ canvas.addEventListener('click',function(e){
 	let x = e.clientX - rect.left;
 	let y = e.clientY - rect.top;
 	
-	console.log("x: " + x + " y: " + y);		
+	// console.log("x: " + x + " y: " + y);		
 	for(let i=0;i<button_coordinates.length;i++){
 		if(button_coordinates[i].disabled){
 			if(i==0){
